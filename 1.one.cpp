@@ -5,6 +5,7 @@
 #include <chrono>
 #include <fstream> // Для записи в файл
 
+// Алгоритм перебора
 bool isPrimeSequential(unsigned long long n) {
     if (n <= 1) return false; // 0 и 1 не являются простыми числами
     if (n <= 3) return true; // 2 и 3 являются простыми числами
@@ -18,6 +19,7 @@ bool isPrimeSequential(unsigned long long n) {
     return true; // Число простое
 }
 
+// Алгоритм случайного поиска
 bool isPrimeRandom(unsigned long long n, int iterations = 100) {
     if (n <= 1) return false; // 0 и 1 не являются простыми числами
     if (n <= 3) return true; // 2 и 3 являются простыми числами
@@ -144,7 +146,7 @@ void test_one()
         // std::cout << "Время выполнения: " << duration.count()*100000 << " микро секунд." << std::endl;
 
         // Записываем номер и время выполнения в файл
-        outputFile << number << "," << duration.count()*100000 << std::endl;
+        outputFile << number << "," << duration.count()*1000000 << std::endl;
     }
     outputFile.close(); // Закрываем файл
 }
@@ -184,7 +186,7 @@ void test_two()
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = end - start;
         // Записываем номер и время выполнения в файл
-        outputFile << N << "," << duration.count()*100000 << std::endl;
+        outputFile << N << "," << duration.count()*1000000 << std::endl;
     }
 }
 
