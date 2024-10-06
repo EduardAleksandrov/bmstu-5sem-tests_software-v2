@@ -121,6 +121,36 @@ void test_number()
     }
 }
 
+void test_zero()
+{
+// Тест0
+    int k = 10; // Количество тестов
+    std::cout << "Проверка на простоту чисел больших двумя способами:" << std::endl;
+
+    // Начало замера времени
+    auto start_one = std::chrono::high_resolution_clock::now();
+    for (unsigned long long number = 30000000; number <= 50000000; number++) {
+        isPrimeSequential(number);
+    }
+    // Конец замера времени
+    auto end_one = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration_one = end_one -start_one;
+
+    // Начало замера времени
+    auto start_two = std::chrono::high_resolution_clock::now();
+    for (unsigned long long number = 30000000; number <= 50000000; number++) {
+        millerRabinTest(number, k);
+    }
+    // Конец замера времени
+    auto end_two = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration_two = end_two - start_two;
+    std::cout << "Время выполнения теста перебором: " << duration_one.count() << " секунд." << std::endl;
+    std::cout << "Время выполнения теста Миллера: " << duration_two.count() << " секунд." << std::endl;
+    // Для больших чисел тест Миллера дает лучший результат
+    // Для небольших чисел полный перебор может быть предпочтительным, в то время как для больших чисел лучше использовать тест Миллера-Рабина.
+    // Процессор полностью загружает одно ядро. Память не расходуется.
+}
+
 void test_one()
 {
 // Тест1
@@ -214,10 +244,11 @@ int main() {
     std::cout << "Введите номер теста" << std::endl;
     int test_numbers;
     std::cin >> test_numbers;
-    if(test_numbers == 0) test_number();
+    if(test_numbers == 0) test_zero();
     else if(test_numbers == 1) test_one();
     else if(test_numbers == 2) test_two();
     else if(test_numbers == 3) test_three();
+    else if(test_numbers == 4) test_number();
     else exit(EXIT_FAILURE);
 
     return 0;
