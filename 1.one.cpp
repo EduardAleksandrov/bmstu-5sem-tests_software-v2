@@ -38,16 +38,16 @@ bool isPrimeRandom(unsigned long long n, int iterations = 100) {
     return true; // Число, вероятно, простое
 }
 
-// Функция для возведения в степень по модулю
+// Функция для возведения в степень по модулю пошаговое
 unsigned long long modularExponentiation(unsigned long long base, unsigned long long exp, unsigned long long mod) {
     unsigned long long result = 1;
     base = base % mod;
     while (exp > 0) {
         if (exp % 2 == 1) { // Если exp нечетное
-            result = (result * base) % mod;
+            result = (result * base) % mod; // Умножаем результат на base и берем модуль
         }
         exp = exp >> 1; // Делим exp на 2
-        base = (base * base) % mod; // Возводим base в квадрат
+        base = (base * base) % mod; // Возводим base в квадрат и берем модуль
     }
     return result;
 }
@@ -92,6 +92,7 @@ bool millerRabinTest(unsigned long long n, int k) {
     return true; // n вероятно простое
 }
 
+// Тестирование определенного числа
 void test_number()
 {
     unsigned long long number;
@@ -121,11 +122,12 @@ void test_number()
     }
 }
 
+// Проверка на время выполнения
 void test_zero()
 {
 // Тест0
     int k = 10; // Количество тестов
-    std::cout << "Проверка на простоту чисел больших двумя способами:" << std::endl;
+    std::cout << "Проверка на простоту больших чисел двумя способами:" << std::endl;
 
     // Начало замера времени
     auto start_one = std::chrono::high_resolution_clock::now();
@@ -241,9 +243,16 @@ int main() {
     // Инициализация генератора случайных чисел
     std::srand(static_cast<unsigned int>(std::time(0)));
 
-    std::cout << "Введите номер теста" << std::endl;
+    std::cout << "Введите номер теста от нуля до четырех" << std::endl;
+    std::cout << "0 - проверка на время выполнения" << std::endl;
+    std::cout << "1 - задание 1" << std::endl;
+    std::cout << "2 - задание 2" << std::endl;
+    std::cout << "3 - задание 3" << std::endl;
+    std::cout << "4 - проверим введенное число" << std::endl;
+
     int test_numbers;
     std::cin >> test_numbers;
+    
     if(test_numbers == 0) test_zero();
     else if(test_numbers == 1) test_one();
     else if(test_numbers == 2) test_two();
