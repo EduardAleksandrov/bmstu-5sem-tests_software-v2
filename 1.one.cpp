@@ -157,6 +157,7 @@ void test_one()
 {
 // Тест1
     int k = 10; // Количество тестов
+    unsigned long long sum{0};
 
     std::ofstream outputFile("./execution_times_one.csv"); // Открываем файл для записи
     // Записываем заголовок
@@ -168,7 +169,8 @@ void test_one()
         auto start = std::chrono::high_resolution_clock::now();
 
         if (millerRabinTest(number, k)) {
-            std::cout << number << " является вероятно простым числом." << std::endl;
+            std::cout << number << " является вероятно простым числом." << " Всего " << sum << std::endl;
+            sum++;
         } else {
             // std::cout << number << " не является простым числом." << std::endl;
         }
